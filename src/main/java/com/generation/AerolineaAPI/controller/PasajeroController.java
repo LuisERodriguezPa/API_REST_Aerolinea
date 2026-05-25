@@ -3,6 +3,7 @@ package com.generation.AerolineaAPI.controller;
 import com.generation.AerolineaAPI.model.Pasajero;
 import com.generation.AerolineaAPI.model.Pasajero;
 import com.generation.AerolineaAPI.service.PasajeroService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,12 +36,12 @@ public class PasajeroController {
     }
 
     @PostMapping
-    public ResponseEntity<Pasajero> crear(@RequestBody Pasajero Pasajero) {
-        return ResponseEntity.status(CREATED).body(pasajeroService.save(Pasajero));
+    public ResponseEntity<Pasajero> crear(@Valid @RequestBody Pasajero pasajero) {
+        return ResponseEntity.status(CREATED).body(pasajeroService.save(pasajero));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pasajero> actualizar(@PathVariable Long id, @RequestBody Pasajero datos) {
+    public ResponseEntity<Pasajero> actualizar(@PathVariable Long id, @Valid @RequestBody Pasajero datos) {
         Pasajero actualizado = pasajeroService.update(id, datos);
         if(actualizado == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(actualizado);

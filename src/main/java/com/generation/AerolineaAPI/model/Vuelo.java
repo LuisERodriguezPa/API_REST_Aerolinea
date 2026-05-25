@@ -1,6 +1,8 @@
 package com.generation.AerolineaAPI.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -12,15 +14,19 @@ public class Vuelo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "El origen no puede estar vacio")
     @Column(nullable = false)
     private String origen;
 
+    @NotBlank(message = "El destino no puede estar vacío")
     @Column(nullable = false)
     private String destino;
 
+    @NotNull(message = "La fecha y hora del vuelo son obligatorias")
     @Column(nullable = false)
     private LocalDateTime fechaHora;
 
+    @NotNull(message = "El estado del vuelo es obligatorio")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstadoVuelo estado;
